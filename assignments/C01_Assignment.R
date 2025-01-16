@@ -42,7 +42,7 @@ SPECIES = "Placopecten magellanicus"
 #reading in scallop obs data
 obs = read_obis(SPECIES)
 obs
-
+summary(obs)
 #checking number of rows and columns
 dim_start = dim(obs)
 dim_start
@@ -114,6 +114,7 @@ mask
 #plotting masked geographic data
 plot(mask, breaks = "equal", axes = TRUE, reset = FALSE)
 plot(st_geometry(obs), pch = ".", add = TRUE)
+plot(st_geometry(obs%>%filter(is.na(individualCount))), pch = ".", add = TRUE, col = "yellow")
 
 #applying the mask to the points?
 hitOrMiss = extract_brickman(mask, obs)
