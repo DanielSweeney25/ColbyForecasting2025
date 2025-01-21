@@ -11,6 +11,7 @@ project:
     - C04_models.qmd
     - C05_prediction.qmd
     - S01_observations.qmd
+    - S02_background.qmd
     - about.qmd
 execute: 
   cache: false
@@ -39,7 +40,9 @@ website:
       - text: Prediction
         href: C05_prediction.qmd
       - text: My_observations
-      - href: S01_observations.qmd
+        href: S01_observations.qmd
+      - text: My_background
+        href: S02_background.qmd
       - text: About
         href: about.qmd
     tools:
