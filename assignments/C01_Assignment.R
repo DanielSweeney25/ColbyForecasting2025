@@ -22,18 +22,27 @@ ggplot(Scallop, aes(x=year))+
 #plotting spatial data to see a map of scallop observations
 coast = read_coastline()
 
-ggplot(Scallop)+
+ggplot(ScallopNAremoved)+
   geom_sf(alpha = 0.1,
           size = 0.7)+
   geom_sf(data = coast,
           col = "orange")+
   facet_wrap(~month)
 
+ggplot(Scallop)+
+  geom_sf(alpha = 0.1,
+          size = 0.7)+
+  geom_sf(data = coast,
+          col = "orange")+
+  facet_wrap(~month)
 #removing all NAs from the eventDate and individualCount
-Scallop = Scallop %>%
+ScallopNAremoved = Scallop %>%
   filter(!is.na(eventDate))%>%
   filter(!is.na(individualCount))
 summary(Scallop)
+
+Scallop %>% count(basisOfRecord)
+ScallopNAremoved %>% count(basisOfRecord)
 
 #beginning of C01 Observations assignment
 source("setup.R")
