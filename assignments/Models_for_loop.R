@@ -40,7 +40,7 @@ for (approach in approaches){
       rec = rec |>
         step_log(Xbtm,  base = 10)
     }
-    #filter out colinearity
+    #filter out covariates that are too correlated
     rec = rec |> 
       step_corr(all_numeric_predictors())
     #add recipe to workflow
@@ -60,6 +60,12 @@ for (approach in approaches){
     #predict using testing data
     test_data = testing(split_data)
     test_pred = predict_table(fitted_wflow, test_data, type = "prob")
+    
+    #get an AUC value and save it as a csv
+    AUC = roc_auc(test_pred, class,  .pred_presence)
+    output_dir <- "/Users/bloom/Desktop/data/2025/bloom/models"
+    file_name <- file.path(output_dir, paste0(approach_prefix,"_", month, "AUC.csv"))
+    write.csv(AUC, file = file_name)
     #write the workflow to file
     write_workflow(fitted_wflow, version = cfg$version)
   }
